@@ -2,8 +2,9 @@ let sendButton = document.getElementById("send");
 
 
 sendButton.addEventListener("click", function () {
+    let curScramble = document.getElementById("scramble").textContent;
     let time = document.getElementById("time").value;
-    let data = {"user": "Test","time": time, "scramble": "N/A"};  
+    let data = {"user": "Test","time": time, "scramble": curScramble, "date":"2/23/2022 @ 10:23am"};
     console.log("Client sending this data to /timer:", data);
     fetch('/timer', {
         method: 'POST', 
@@ -15,3 +16,4 @@ sendButton.addEventListener("click", function () {
         console.log(response);
     });
 });
+
