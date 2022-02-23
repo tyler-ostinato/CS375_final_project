@@ -15,7 +15,7 @@ pool.connect().then(function () {
     console.log(`Connected to database ${env.database}`);
 });
 
-app.use(express.static("public"));
+app.use(express.static("public_html"))
 app.use(express.json());
 
 app.post("/timer", function(req, res){
@@ -29,10 +29,10 @@ app.post("/timer", function(req, res){
         "INSERT INTO timer (name, timer, date, scramble) VALUES($1, $2, $3, $4) RETURNING *",
         [user, time, date, scramble]
     )
-
-    console.log(jsonObject);
-    res.status(200);
-    res.send();
+    .then(function(response){
+        console.log(response.rows);
+        return res.sendStatus(200);
+    })
 })
 
 app.listen(port, hostname, () => {
