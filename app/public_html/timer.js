@@ -1,6 +1,5 @@
 let sendButton = document.getElementById("send");
 
-
 sendButton.addEventListener("click", function () {
     let curScramble = document.getElementById("scramble").textContent;
     let time = document.getElementById("time").value;
@@ -16,4 +15,31 @@ sendButton.addEventListener("click", function () {
         console.log(response);
     });
 });
+
+
+// Gen new scramble on button press
+let newScramble = document.getElementById('gen-scramble');
+let displayScramble = document.getElementById('scramble');
+
+newScramble.addEventListener("click", function(){
+    console.log("Generating new scramble...");
+    fetch('/scramble')
+    .then(function(response){
+        // console.log(response.scramble);
+        return response.json();
+    })
+    .then(jsonObject => {
+        // Update scramble string on page
+        let scrambleString = jsonObject.scramble;
+        displayScramble.textContent = scrambleString.join(" ");
+
+        // Update visualiser on page
+        let blankScramble = initialState();
+        let randoTest = blankScramble;
+        for(move of jsonObject.scramble){
+            randoTest = scrambleStep(move, randoTest);
+        }
+        drawCubeState(randoTest);
+    })
+})
 
