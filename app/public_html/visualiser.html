@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualiser</title>
+</head>
+<body>
+    <canvas id="2dCube" width="500" height ="400"></canvas>
+    <script src="visualiser.js"></script>
+    <script>
+        let blankScramble = initialState();
+
+        let scrambleTest = "L' U";
+        let scrambleArray = scrambleTest.split(" ");
+        // let randoTest=[['W', 'Y', 'W', 'W', 'G', 'W', 'W', 'G', 'O'],
+        // ['Y', 'B', 'R', 'W', 'W', 'G', 'O', 'R', 'O'],
+        // ['W', 'W', 'W', 'R', 'O', 'W', 'W', 'Y', 'W'],
+        // ['G', 'G', 'G', 'W', 'R', 'Y', 'W', 'O', 'R'],
+        // ['G', 'B', 'W', 'W', 'W', 'R', 'W', 'W', 'W'],
+        // ['Y', 'W', 'B', 'W', 'W', 'G', 'R', 'W', 'W']]
+        // randoTest = scrambleStep("R",randoTest)
+        // randoTest = scrambleStep("L",randoTest);
+        let randoTest = blankScramble;
+        // randoTest = scrambleStep("U",randoTest);
+        for(move of scrambleArray){
+            randoTest = scrambleStep(move,randoTest);
+        }
+
+        drawCubeState(randoTest);
+    </script>    
+</body>
+</html>
