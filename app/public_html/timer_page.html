@@ -7,8 +7,9 @@
     <title>Cubing Timer</title>
 </head>
 <body>
+    <!-- Manually send time to database -->
     <div style="padding-bottom: 25px;">
-        <span>Scramble: </span><span id="scramble">B L' U F' D' R D2 B' L' D' R2 D2 L2 U R2 F2 U B2 L2 F2 D</span>
+        <span>Scramble: </span><span id="scramble">R2 U R L' U2 D' F' U2 B2 L2 B2 R2 D' F2 D2 L2 U' B2 L2 B U</span>
     </div>
     <div>
         <label for="time">This time:</label>
@@ -16,6 +17,27 @@
     </div>
     <button id="send" style="margin: 15px; padding: 5px;">Send time to database</button>
 
+    <!-- <script src="timer.js"></script> -->
+
+
+    <!-- Visualiser of the cube -->
+    <canvas id="2dCube" width="500" height ="400"></canvas>
+
+    <button id="gen-scramble" style="margin: 15px; padding: 5px;">Generate a new scramble</button>
+
+    <script src="visualiser.js"></script>
+    <script>
+        let blankScramble = initialState();
+
+        let scrambleTest = "R2 U R L' U2 D' F' U2 B2 L2 B2 R2 D' F2 D2 L2 U' B2 L2 B U";
+        let scrambleArray = scrambleTest.split(" ");
+        let randoTest = blankScramble;
+        for(move of scrambleArray){
+            randoTest = scrambleStep(move,randoTest);
+        }
+
+        drawCubeState(randoTest);
+    </script>
 
     <script src="timer.js"></script>
     
