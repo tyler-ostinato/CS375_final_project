@@ -2,9 +2,9 @@
 //For those unfamiliar with terminology used for variable naming and comments this page may be useful to view:
 //https://rubikscube.info/concepts.php
 
-let clockwise = [6,2,-2,4,0,-4,2,-2,-6];
+let clockwise = [6,2,-2,4,0,-4,2,-2,-6]; //This is some mental logic that somehow works. Moves each cubie to the next clockwise position. Cube is as [0,1,2,3,4,5,6,7,8] so changes to [6,3,0,7,4,1,8,5,2]
 
-function scrambleStep(move,cubeState){
+function scrambleStep(move,cubeState){ //performs "move" on "scrambleState". Called repeatedly to scramble cube
 
     if(move==="R"){
         return turnR(cubeState);
@@ -110,7 +110,7 @@ function scrambleStep(move,cubeState){
     }
 
 }
-function initialState(){
+function initialState(){ //creates a solved cube to be manipulated by scramble alg
     let faceColors=["W","O","G","R","B","Y"];
     let cube=[];
     for(let faces=0;faces<6;faces++){
@@ -122,7 +122,8 @@ function initialState(){
     }
     return cube;
 }
-function drawCubeState(inputScramble){
+function drawCubeState(inputScramble){ //draws the 3d array provided to a cube. Has no logic to determine if correct or moves. Draws what is given.
+    //This seems counterintuitively unnesessary, see next comment
     let white = "white"
     let orange = "orange"
     let green = "green"
@@ -299,9 +300,6 @@ function turnR(cubeState){
         else{
             newYellowFace.push(cubeState[5][cubie]);
         }
-        // newYellowFace.push(cubeState[5][cubie]);
-        // newYellowFace.push(cubeState[5][cubie+1]);
-        // newYellowFace.push(cubeState[4][cubie]);
     }
     for(let cubie=0;cubie<9;cubie+=3){
         newGreenFace.push(cubeState[2][cubie]);
