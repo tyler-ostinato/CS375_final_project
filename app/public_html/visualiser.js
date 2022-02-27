@@ -57,6 +57,57 @@ function scrambleStep(move,cubeState){
         }
         return newCube;
     }
+    else if(move==="D"){
+        return turnD(cubeState);
+    }
+    else if(move==="D'"){
+        let newCube=cubeState;
+        for(let i=0;i<3;i++){
+            newCube=turnD(newCube);
+        }
+        return newCube;
+    }
+    else if(move==="D2"){
+        let newCube=cubeState;
+        for(let i=0;i<2;i++){
+            newCube=turnD(newCube);
+        }
+        return newCube;
+    }
+    else if(move==="F"){
+        return turnF(cubeState);
+    }
+    else if(move==="F'"){
+        let newCube=cubeState;
+        for(let i=0;i<3;i++){
+            newCube=turnF(newCube);
+        }
+        return newCube;
+    }
+    else if(move==="F2"){
+        let newCube=cubeState;
+        for(let i=0;i<2;i++){
+            newCube=turnF(newCube);
+        }
+        return newCube;
+    }
+    else if(move==="B"){
+        return turnB(cubeState);
+    }
+    else if(move==="B'"){
+        let newCube=cubeState;
+        for(let i=0;i<3;i++){
+            newCube=turnB(newCube);
+        }
+        return newCube;
+    }
+    else if(move==="B2"){
+        let newCube=cubeState;
+        for(let i=0;i<2;i++){
+            newCube=turnB(newCube);
+        }
+        return newCube;
+    }
 
 }
 function initialState(){
@@ -69,7 +120,6 @@ function initialState(){
         }
         cube.push(curFace);
     }
-    console.log(cube);
     return cube;
 }
 function drawCubeState(inputScramble){
@@ -81,7 +131,6 @@ function drawCubeState(inputScramble){
     let yellow = "yellow"
 
     let cube=[];
-
     //color converter. potentially users can change face colors without incident. Allows HEX values (I'd imagine)
     for(const face of inputScramble){
         let curFace=[];
@@ -204,17 +253,11 @@ function drawCubeState(inputScramble){
                 cubieIndex++;
             }
         }
-        
-
-        
-
-        
-
-        
     }
 
 }
 
+//R,L,F,B,U,D is all that is needed. 2X is handled by calling the function twice. X' is covered by calling it thrice
 function turnR(cubeState){
     let newCube=[]
     let redFace = cubeState[3];
@@ -229,15 +272,36 @@ function turnR(cubeState){
         newWhiteFace.push(cubeState[0][cubie+1]);
         newWhiteFace.push(cubeState[2][cubie+2]);
     }
-    for(let cubie=0;cubie<9;cubie+=3){
-        newBlueFace.push(cubeState[4][cubie]);
-        newBlueFace.push(cubeState[4][cubie+1]);
-        newBlueFace.push(cubeState[0][cubie+2]);
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie===0){
+            newBlueFace.push(cubeState[0][8]);
+        }
+        else if(cubie===3){
+            newBlueFace.push(cubeState[0][5]);
+        }
+        else if(cubie===6){
+            newBlueFace.push(cubeState[0][2]);
+        }
+        else{
+            newBlueFace.push(cubeState[4][cubie]);
+        }
     }
-    for(let cubie=0;cubie<9;cubie+=3){
-        newYellowFace.push(cubeState[5][cubie]);
-        newYellowFace.push(cubeState[5][cubie+1]);
-        newYellowFace.push(cubeState[4][cubie+2]);
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie===2){
+            newYellowFace.push(cubeState[4][6]);
+        }
+        else if(cubie===5){
+            newYellowFace.push(cubeState[4][3]);
+        }
+        else if(cubie===8){
+            newYellowFace.push(cubeState[4][0]);
+        }
+        else{
+            newYellowFace.push(cubeState[5][cubie]);
+        }
+        // newYellowFace.push(cubeState[5][cubie]);
+        // newYellowFace.push(cubeState[5][cubie+1]);
+        // newYellowFace.push(cubeState[4][cubie]);
     }
     for(let cubie=0;cubie<9;cubie+=3){
         newGreenFace.push(cubeState[2][cubie]);
@@ -253,7 +317,6 @@ function turnR(cubeState){
     newCube.push(newRedFace);
     newCube.push(newBlueFace);
     newCube.push(newYellowFace);
-    console.log(newCube);
     return newCube;
 }
 
@@ -266,15 +329,33 @@ function turnL(cubeState){
     let newYellowFace = [];
     let newGreenFace = [];
     let newRedFace=cubeState[3];
-    for(let cubie=0;cubie<9;cubie+=3){
-        newWhiteFace.push(cubeState[4][cubie]);
-        newWhiteFace.push(cubeState[0][cubie+1]);
-        newWhiteFace.push(cubeState[0][cubie+2]);
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie===0){
+            newWhiteFace.push(cubeState[4][8]);
+        }
+        else if(cubie===3){
+            newWhiteFace.push(cubeState[4][5]);
+        }
+        else if(cubie===6){
+            newWhiteFace.push(cubeState[4][2]);
+        }
+        else{
+            newWhiteFace.push(cubeState[0][cubie]);
+        }
     }
-    for(let cubie=0;cubie<9;cubie+=3){
-        newBlueFace.push(cubeState[5][cubie]);
-        newBlueFace.push(cubeState[4][cubie+1]);
-        newBlueFace.push(cubeState[4][cubie+2]);
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie===2){
+            newBlueFace.push(cubeState[5][6]);
+        }
+        else if(cubie===5){
+            newBlueFace.push(cubeState[5][3]);
+        }
+        else if(cubie===8){
+            newBlueFace.push(cubeState[5][0]);
+        }
+        else{
+            newBlueFace.push(cubeState[4][cubie]);
+        }
     }
     for(let cubie=0;cubie<9;cubie+=3){
         newYellowFace.push(cubeState[2][cubie]);
@@ -295,7 +376,6 @@ function turnL(cubeState){
     newCube.push(newRedFace);
     newCube.push(newBlueFace);
     newCube.push(newYellowFace);
-    console.log(newCube);
     return newCube;
 }
 
@@ -307,14 +387,38 @@ function turnU(cubeState){
     let newBlueFace = [];
     let newRedFace = [];
     let newGreenFace = [];
-    let newYellowFace=cubeState[3];
+    let newYellowFace=cubeState[5];
     for(let cubie=0;cubie<9;cubie++){
         if(cubie<3){
             newOrangeFace.push(cubeState[2][cubie]);
         }
-        newOrangeFace.push(cubeState[1][cubie]);
-        newOrangeFace.push(cubeState[1][cubie+1]);
-        newOrangeFace.push(cubeState[1][cubie+2]);
+        else{
+            newOrangeFace.push(cubeState[1][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie<3){
+            newGreenFace.push(cubeState[3][cubie]);
+        }
+        else{
+            newGreenFace.push(cubeState[2][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie<3){
+            newRedFace.push(cubeState[4][cubie]);
+        }
+        else{
+            newRedFace.push(cubeState[3][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie<3){
+            newBlueFace.push(cubeState[1][cubie]);
+        }
+        else{
+            newBlueFace.push(cubeState[4][cubie]);
+        }
     }
     for(let cubie=0;cubie<9;cubie++){
         newWhiteFace.push(whiteFace[cubie+clockwise[cubie]]);
@@ -325,6 +429,212 @@ function turnU(cubeState){
     newCube.push(newRedFace);
     newCube.push(newBlueFace);
     newCube.push(newYellowFace);
-    console.log(newCube);
+    return newCube;
+}
+
+function turnD(cubeState){
+    let newCube=[]
+    let yellowFace = cubeState[5];
+    let newOrangeFace = [];
+    let newYellowFace = [];
+    let newBlueFace = [];
+    let newRedFace = [];
+    let newGreenFace = [];
+    let newWhiteFace=cubeState[0];
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie<6){
+            newOrangeFace.push(cubeState[1][cubie]);
+        }
+        else{
+            newOrangeFace.push(cubeState[4][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie<6){
+            newGreenFace.push(cubeState[2][cubie]);
+        }
+        else if(cubie){
+            newGreenFace.push(cubeState[1][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie<6){
+            newRedFace.push(cubeState[3][cubie]);
+        }
+        else{
+            newRedFace.push(cubeState[2][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie<6){
+            newBlueFace.push(cubeState[4][cubie]);
+        }
+        else{
+            newBlueFace.push(cubeState[3][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        newYellowFace.push(yellowFace[cubie+clockwise[cubie]]);
+    }
+    newCube.push(newWhiteFace);
+    newCube.push(newOrangeFace);
+    newCube.push(newGreenFace);
+    newCube.push(newRedFace);
+    newCube.push(newBlueFace);
+    newCube.push(newYellowFace);
+    return newCube;
+}
+
+function turnF(cubeState){
+    let newCube=[]
+    let greenFace = cubeState[2];
+    let newOrangeFace = [];
+    let newWhiteFace = [];
+    let newYellowFace = [];
+    let newRedFace = [];
+    let newGreenFace = [];
+    let newBlueFace=cubeState[4];
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie===2){
+            newOrangeFace.push(cubeState[5][0]);
+        }
+        else if(cubie===5){
+            newOrangeFace.push(cubeState[5][1]);
+        }
+        else if(cubie===8){
+            newOrangeFace.push(cubeState[5][2]);
+        }
+        else{
+            newOrangeFace.push(cubeState[1][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie>2){
+            newYellowFace.push(cubeState[5][cubie]);
+        }
+        else if(cubie===0){
+            newYellowFace.push(cubeState[3][6]);
+        }
+        else if(cubie===1){
+            newYellowFace.push(cubeState[3][3]);
+        }
+        else if(cubie===2){
+            newYellowFace.push(cubeState[3][0]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie===0){
+            newRedFace.push(cubeState[0][6]);
+        }
+        else if(cubie===3){
+            newRedFace.push(cubeState[0][7]);
+        }
+        else if(cubie===6){
+            newRedFace.push(cubeState[0][8]);
+        }
+        else{
+            newRedFace.push(cubeState[3][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie<6){
+            newWhiteFace.push(cubeState[0][cubie]);
+        }
+        else if(cubie===6){
+            newWhiteFace.push(cubeState[1][8]);
+        }
+        else if(cubie===7){
+            newWhiteFace.push(cubeState[1][5]);
+        }
+        else if(cubie===8){
+            newWhiteFace.push(cubeState[1][2]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        newGreenFace.push(greenFace[cubie+clockwise[cubie]]);
+    }
+    newCube.push(newWhiteFace);
+    newCube.push(newOrangeFace);
+    newCube.push(newGreenFace);
+    newCube.push(newRedFace);
+    newCube.push(newBlueFace);
+    newCube.push(newYellowFace);
+    return newCube;
+}
+
+function turnB(cubeState){
+    let newCube=[]
+    let blueFace = cubeState[4];
+    let newOrangeFace = [];
+    let newWhiteFace = [];
+    let newYellowFace = [];
+    let newRedFace = [];
+    let newBlueFace = [];
+    let newGreenFace=cubeState[2];
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie===0){
+            newOrangeFace.push(cubeState[0][2]);
+        }
+        else if(cubie===3){
+            newOrangeFace.push(cubeState[0][1]);
+        }
+        else if(cubie===6){
+            newOrangeFace.push(cubeState[0][0]);
+        }
+        else{
+            newOrangeFace.push(cubeState[1][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie<6){
+            newYellowFace.push(cubeState[5][cubie]);
+        }
+        else if(cubie===6){
+            newYellowFace.push(cubeState[1][0]);
+        }
+        else if(cubie===7){
+            newYellowFace.push(cubeState[1][3]);
+        }
+        else if(cubie===8){
+            newYellowFace.push(cubeState[1][6]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie===2){
+            newRedFace.push(cubeState[5][8]);
+        }
+        else if(cubie===5){
+            newRedFace.push(cubeState[5][7]);
+        }
+        else if(cubie===8){
+            newRedFace.push(cubeState[5][6]);
+        }
+        else{
+            newRedFace.push(cubeState[3][cubie]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        if(cubie>2){
+            newWhiteFace.push(cubeState[0][cubie]);
+        }
+        else if(cubie===0){
+            newWhiteFace.push(cubeState[3][2]);
+        }
+        else if(cubie===1){
+            newWhiteFace.push(cubeState[3][5]);
+        }
+        else if(cubie===2){
+            newWhiteFace.push(cubeState[3][8]);
+        }
+    }
+    for(let cubie=0;cubie<9;cubie++){
+        newBlueFace.push(blueFace[cubie+clockwise[cubie]]);
+    }
+    newCube.push(newWhiteFace);
+    newCube.push(newOrangeFace);
+    newCube.push(newGreenFace);
+    newCube.push(newRedFace);
+    newCube.push(newBlueFace);
+    newCube.push(newYellowFace);
     return newCube;
 }

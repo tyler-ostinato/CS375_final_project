@@ -12,18 +12,9 @@
     <script>
         let blankScramble = initialState();
 
-        let scrambleTest = "L' U";
+        let scrambleTest = "R2 U R L' U2 D' F' U2 B2 L2 B2 R2 D' F2 D2 L2 U' B2 L2 B U";
         let scrambleArray = scrambleTest.split(" ");
-        // let randoTest=[['W', 'Y', 'W', 'W', 'G', 'W', 'W', 'G', 'O'],
-        // ['Y', 'B', 'R', 'W', 'W', 'G', 'O', 'R', 'O'],
-        // ['W', 'W', 'W', 'R', 'O', 'W', 'W', 'Y', 'W'],
-        // ['G', 'G', 'G', 'W', 'R', 'Y', 'W', 'O', 'R'],
-        // ['G', 'B', 'W', 'W', 'W', 'R', 'W', 'W', 'W'],
-        // ['Y', 'W', 'B', 'W', 'W', 'G', 'R', 'W', 'W']]
-        // randoTest = scrambleStep("R",randoTest)
-        // randoTest = scrambleStep("L",randoTest);
         let randoTest = blankScramble;
-        // randoTest = scrambleStep("U",randoTest);
         for(move of scrambleArray){
             randoTest = scrambleStep(move,randoTest);
         }
