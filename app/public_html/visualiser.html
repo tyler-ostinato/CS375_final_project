@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualiser</title>
+</head>
+<body>
+    <canvas id="2dCube" width="500" height ="400"></canvas>
+    <script src="visualiser.js"></script>
+    <script>
+        let blankScramble = initialState();
+
+        let scrambleTest = "R2 U R L' U2 D' F' U2 B2 L2 B2 R2 D' F2 D2 L2 U' B2 L2 B U";
+        let scrambleArray = scrambleTest.split(" ");
+        let randoTest = blankScramble;
+        for(move of scrambleArray){
+            randoTest = scrambleStep(move,randoTest);
+        }
+
+        drawCubeState(randoTest);
+    </script>    
+</body>
+</html>
