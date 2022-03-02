@@ -1,44 +1,43 @@
-let startEnabled=false;
-let timerID
+let sendButton = document.getElementById("send");
 
-document.getElementById("start").addEventListener("click",startHandler);
-document.getElementById("stop").addEventListener("click",stopHandler);
-let timeHolder = document.getElementById("timerHolder");
-let time = 0.00;
+sendButton.addEventListener("click", function () {
+    let curScramble = document.getElementById("scramble").textContent;
+    let time = document.getElementById("time").value;
+    let data = {"user": "Test","time": time, "scramble": curScramble, "date": Date.now()};
+    console.log("Client sending this data to /timer:", data);
+    fetch('/timer', {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    }).then(function (response) {
+        console.log(response);
+    });
+});
 
-document.addEventListener('keyup', event => {
-    if (event.code === 'Space') {
-        spaceHandler();
-    }
-  })
 
-function startHandler(){
-    if(!startEnabled){
-        time = 0.00;
-        timerID=setInterval(timerUpdate,10);
-        startEnabled=true;
-    }
-}
-function stopHandler(){
-    if(startEnabled){
-        clearInterval(timerID);
-        startEnabled=false;
-    }
-}
+// Gen new scramble on button press
+let newScramble = document.getElementById('gen-scramble');
+let displayScramble = document.getElementById('scramble');
 
-function spaceHandler(){
-    if(startEnabled){
-        clearInterval(timerID);
-        startEnabled=false;
-    }
-    else{
-        time = 0.00;
-        timerID=setInterval(timerUpdate,10);
-        startEnabled=true;
-    }
-}
+newScramble.addEventListener("click", function(){
+    console.log("Generating new scramble...");
+    fetch('/scramble')
+    .then(function(response){
+        return response.json();
+    })
+    .then(jsonObject => {
+        // Update scramble string on page
+        let scrambleString = jsonObject.scramble;
+        displayScramble.textContent = scrambleString.join(" ");
 
-function timerUpdate(){
-    time+=.01;
-    timeHolder.textContent=time.toFixed(2);
-}
+        // Update visualiser on page
+        let blankScramble = initialState();
+        let randoTest = blankScramble;
+        for(move of jsonObject.scramble){
+            randoTest = scrambleStep(move, randoTest);
+        }
+        drawCubeState(randoTest);
+    })
+});
