@@ -1,5 +1,3 @@
-// const express = require("express");
-
 let sendButton = document.getElementById("send");
 
 sendButton.addEventListener("click", function () {
