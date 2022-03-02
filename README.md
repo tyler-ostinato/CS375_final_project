@@ -9,7 +9,7 @@ Techonolgies/Methods we will use -\
 Javascript, CSS, and HTML\
 Express\
 Node.js\
-D3.js\
+Chart.js\
 Postgres SQL database\
 Fetch API\
 RESTful web APIs (Node)\
@@ -27,17 +27,17 @@ psql --username postgres
 ```
 Create a database.
 ```
-CREATE DATABASE <DATABSE NAME>;
+CREATE DATABASE rubiks_timer;
 ```
 (add database to env.json file)
 
-(run \l too see your new datbase)
+(run \l too see your new database)
 
 (logout with \q)
 
 Log into the database.
 ```
-psql --username postgres --dbname <DATABASE NAME>
+psql --username postgres --dbname rubiks_timer
 ```
 Create a table in the database to store times.
 ```
@@ -50,7 +50,7 @@ CREATE TABLE timer (
 );
 ```
 ```
-INSERT INTO timer (name, timer, date, scramble) VALUES ('Test', 77.77, '2/23/2022 @ 10:23am', 'Fi D B2 D L Ui Di Bi R U2 R U2 B2 L B2 Ri D2 B2 D2 Ri F');
+INSERT INTO timer (name, timer, scramble, date) VALUES ('Test', 77.77, "U2 R2 L2 B2 R D2 L2 B' U D2 L' D2 R' B' R2 B R F' B R2", '1646238039');
 ```
 Verify entry was added using.
 ```
