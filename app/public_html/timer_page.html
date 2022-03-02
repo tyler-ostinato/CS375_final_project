@@ -1,5 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    body {
+        font: 10px sans-serif;
+    }
+    
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    
+    .grid path,
+    .grid line {
+        fill: none;
+        stroke: rgba(0, 0, 0, 0.25);
+        shape-rendering: crispEdges;
+    }
+    
+    .x.axis path {
+        display: none;
+    }
+    
+    .line {
+        fill: none;
+        stroke-width: 2.5px;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,6 +66,22 @@
 
         drawCubeState(randoTest);
     </script>
+
+    <button id="get-times" style="margin: 15px; padding: 5px;">Get Times</button>
+
+    <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+        <canvas id="myChart"></canvas>
+    </div>    
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <!-- Create a basic line chart for the timer using D3.js -->
+
+    <!-- Load d3.js -->
+    <!-- <script src="https://d3js.org/d3.v3.js"></script> -->
+    <!-- Load graphs -->
+    <script src="graphs.js"></script>
 
     <script src="timer.js"></script>
     
