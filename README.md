@@ -50,7 +50,7 @@ CREATE TABLE timer (
 );
 ```
 ```
-INSERT INTO timer (name, timer, date, scramble) VALUES ('Test', 77.77, '1646238039', "U2 R2 L2 B2 R D2 L2 B' U D2 L' D2 R' B' R2 B R F' B R2");
+INSERT INTO timer (name, timer, scramble, date) VALUES ('Test', 77.77, "U2 R2 L2 B2 R D2 L2 B' U D2 L' D2 R' B' R2 B R F' B R2", '1646238039');
 ```
 Verify entry was added using.
 ```
