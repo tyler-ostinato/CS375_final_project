@@ -11,10 +11,6 @@ const env = require("../env.json");
 const Pool = pg.Pool;
 const pool = new Pool(env);
 
-// import * as SRScrambler from 'sr-scrambler'
-// const scrambler = require("sr-scrambler");
-
-
 // Source for basic scramble: https://levelup.gitconnected.com/using-javascript-to-scramble-a-rubiks-cube-306f52908f18
 // Parity issue: https://levelup.gitconnected.com/javascript-rubiks-cube-scrambler-part-2-an-improved-algorithm-e279c3731c99
 function makeScramble(){
@@ -96,32 +92,63 @@ app.post("/timer", function(req, res){
     let user = jsonObject.user;
     let time = jsonObject.time;
     let date = jsonObject.date;
-    // let scramble = jsonObject.scramble;
-
-    // import SRScrambler from 'sr-scrambler'
-    const scrambler = require("sr-scrambler");
-
-    var scramble = scrambler.generateScramble(3, 30);
-    console.log(scramble);
+    let scramble = jsonObject.scramble;
 
     pool.query(
-        "INSERT INTO timer (name, timer, date, scramble) VALUES($1, $2, $3, $4) RETURNING *",
-        [user, time, date, scramble]
+        "INSERT INTO timer (name, timer, scramble, date) VALUES($1, $2, $3, $4) RETURNING *",
+        [user, time, scramble, date]
     )
     .then(function(response){
         console.log(response.rows);
         return res.sendStatus(200);
     })
-})
+});
 
 app.get('/scramble', function(req, res){
     let genScramble = [];
     genScramble = makeScramble();
-    // console.log(genScramble);
-    // return res.sendStatus(200);
     res.json({scramble: genScramble});
-    // res.sendStatus(200);
-})
+});
+
+app.get('/getBestOfThree', function(req, res){
+    pool.query(
+        "SELECT timer FROM timer ORDER BY date DESC LIMIT 3",
+    )
+    .then(function(response){
+        // console.log(response.rows);
+        return res.send(response.rows);
+    })
+});
+
+app.get('/getBestOfFive', function(req, res){
+    pool.query(
+        "SELECT timer FROM timer ORDER BY date DESC LIMIT 5",
+    )
+    .then(function(response){
+        // console.log(response.rows);
+        return res.send(response.rows);
+    })
+});
+
+app.get('/getBestOfTwelve', function(req, res){
+    pool.query(
+        "SELECT timer FROM timer ORDER BY date DESC LIMIT 12",
+    )
+    .then(function(response){
+        // console.log(response.rows);
+        return res.send(response.rows);
+    })
+});
+
+app.get('/getMostRecent', function(req, res){
+    pool.query(
+        "SELECT timer FROM timer ORDER BY date DESC LIMIT 1",
+    )
+    .then(function(response){
+        // console.log(response.rows);
+        return res.send(response.rows);
+    })
+});
 
 app.listen(port, hostname, () => {
     console.log(`Listening at: http://${hostname}:${port}`);
