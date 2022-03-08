@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="timer.css" rel="stylesheet"> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,6 +42,8 @@
 
     <button id="get-times" style="margin: 15px; padding: 5px;">Get Times</button>
 
+    <div id=timerHolder style="padding: 25px; font-size: 200px; font-family: Courier New;"><span id="timerWhole">0</span><span>.</span><span id="timerDecimal" style="font-size:0.75em;">00</span></div>
+
     <div class="chart-container" style="position: relative; height:40vh; width:80vw">
         <canvas id="myChart"></canvas>
     </div>    
@@ -51,6 +54,10 @@
     <script src="graphs.js"></script>
 
     <script src="timer.js"></script>
+
+
+    <!-- actual timer logic. needs better name -->
+    <!-- <script src="timerTEMP.js"></script> -->
     
 </body>
 </html>
