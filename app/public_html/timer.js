@@ -1,9 +1,10 @@
 let sendButton = document.getElementById("send");
 
-sendButton.addEventListener("click", function () {
+sendButton.addEventListener("click", sendData);
+
+function sendData(){
     let curScramble = document.getElementById("scramble").textContent;
-    let time = document.getElementById("time").value;
-    let data = {"user": "Test","time": time, "scramble": curScramble, "date": Date.now()};
+    let data = {"user": "Test","time": time.toFixed(2), "scramble": curScramble, "date": Date.now()};
     console.log("Client sending this data to /timer:", data);
     fetch('/timer', {
         method: 'POST', 
@@ -14,14 +15,15 @@ sendButton.addEventListener("click", function () {
     }).then(function (response) {
         console.log(response);
     });
-});
-
+}
 
 // Gen new scramble on button press
 let newScramble = document.getElementById('gen-scramble');
 let displayScramble = document.getElementById('scramble');
 
-newScramble.addEventListener("click", function(){
+newScramble.addEventListener("click",generateNewScramble);
+
+function generateNewScramble(){
     console.log("Generating new scramble...");
     fetch('/scramble')
     .then(function(response){
@@ -34,10 +36,85 @@ newScramble.addEventListener("click", function(){
 
         // Update visualiser on page
         let blankScramble = initialState();
-        let randoTest = blankScramble;
+        let randoTest = blankScramble;  //we need better variable names lol
         for(move of jsonObject.scramble){
             randoTest = scrambleStep(move, randoTest);
         }
         drawCubeState(randoTest);
     })
-});
+}
+
+//logic for timer updating and send/receive 
+let startEnabled=false;
+let timerID
+
+let timeHolder = document.getElementById("timerHolder");
+let timerWhole = document.getElementById("timerWhole");
+let timerDecimal = document.getElementById("timerDecimal");
+let time = 0.00;
+spaceHeldFor=0;
+holdDelay=.55; //how long user holds space before timer triggered
+spaceHeld=false;
+
+
+document.addEventListener('keyup', event => {
+    if (event.code === 'Space') {
+        clearInterval(delayID);
+        spaceHandler();
+    }
+  })
+document.addEventListener('keydown', event => {
+    if (event.code === 'Space') {
+        if(!startEnabled){
+            timerWhole.textContent="0";
+            timerDecimal.textContent="00";
+            if(!spaceHeld){
+                timerDelay();
+                spaceHeld=true;
+            }
+        }
+    }
+  })
+
+
+function spaceHandler(){
+    if(startEnabled){
+        clearInterval(timerID);
+        startEnabled=false;
+        timeHolder.classList.remove("redTimer");
+        generateNewScramble();
+        sendData();
+    }
+    else{
+        if(spaceHeldFor.toFixed(2)==holdDelay){
+            time = 0.00;
+            timerID=setInterval(timerUpdate,10);
+            startEnabled=true;
+        }
+        timeHolder.classList.remove("redTimer");
+        timeHolder.classList.remove("greenTimer");
+        spaceHeldFor=0;
+        spaceHeld=false;
+    }
+}
+
+function timerUpdate(){
+    time+=.01;
+    let newTime=time.toFixed(2).split(".");
+    timerWhole.textContent=newTime[0];
+    timerDecimal.textContent=newTime[1];
+}
+
+function timerDelay(){
+    delayID=setInterval(colorUpdate,10);
+}
+
+function colorUpdate(){
+    timeHolder.classList.add("redTimer");
+    spaceHeldFor+=.01;
+    if(spaceHeldFor.toFixed(2)==holdDelay){ //must be ==, not ===
+        timeHolder.classList.remove("redTimer");
+        timeHolder.classList.add("greenTimer");
+        clearInterval(delayID);
+    }
+}

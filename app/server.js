@@ -5,6 +5,8 @@ const app = express();
 const port = 3000;
 const hostname = "localhost";
 
+app.use(express.static("public_html"))
+
 const env = require("../env.json");
 const Pool = pg.Pool;
 const pool = new Pool(env);
