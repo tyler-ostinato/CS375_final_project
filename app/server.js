@@ -108,42 +108,11 @@ app.get('/scramble', function(req, res){
     res.json({scramble: genScramble});
 });
 
-app.get('/getBestOfThree', function(req, res){
+app.get('/getTimes', function(req, res){
     pool.query(
-        "SELECT timer FROM timer ORDER BY date DESC LIMIT 3",
+        "SELECT timer FROM timer ORDER BY date DESC LIMIT 30",
     )
     .then(function(response){
-        // console.log(response.rows);
-        return res.send(response.rows);
-    })
-});
-
-app.get('/getBestOfFive', function(req, res){
-    pool.query(
-        "SELECT timer FROM timer ORDER BY date DESC LIMIT 5",
-    )
-    .then(function(response){
-        // console.log(response.rows);
-        return res.send(response.rows);
-    })
-});
-
-app.get('/getBestOfTwelve', function(req, res){
-    pool.query(
-        "SELECT timer FROM timer ORDER BY date DESC LIMIT 12",
-    )
-    .then(function(response){
-        // console.log(response.rows);
-        return res.send(response.rows);
-    })
-});
-
-app.get('/getMostRecent', function(req, res){
-    pool.query(
-        "SELECT timer FROM timer ORDER BY date DESC LIMIT 1",
-    )
-    .then(function(response){
-        // console.log(response.rows);
         return res.send(response.rows);
     })
 });
