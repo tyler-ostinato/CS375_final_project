@@ -21,7 +21,7 @@ Navigate to desired directory in your terminal and run
 git clone https://github.com/tyler-ostinato/CS375_final_project.git
 ```
 
-## Database Setup
+## Database Setup (Times)
 ```
 psql --username postgres
 ```
@@ -56,6 +56,20 @@ Verify entry was added using.
 ```
 SELECT * FROM timer;
 ```
+
+## Database Setup (Times)
+Log into the database.
+```
+psql --username postgres --dbname rubiks_timer
+```
+Create a table in the database to store user data.
+```
+CREATE TABLE timer (
+    username VARCHAR(20),
+    hashed_password CHAR(60)
+);
+```
+
 ### Authors
 Tyler Ostinato
 
