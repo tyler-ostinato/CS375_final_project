@@ -16,74 +16,43 @@ getTimes.addEventListener("click", function(){
     // Counter the number of solves that have been done
     solve_iter++;
 
-    fetch('/getBestOfThree')
+    fetch('/getTimes')
     .then(function(response){
         return response.json();
     })
     .then(jsonObject => {
+        // Get most recent times
+        let newObject = jsonObject.slice(0, 1);
         let total=0;
+        for(let entry of newObject){
+            total += entry.timer;
+        }
+        mostRecent.push(total.toFixed(2));
 
-        // Get rid of the zero placeholder to prevent errors
-        if(jsonObject.length == 1 && jsonObject[0] == 0){
-            bestOfThree.shift();
+        // Get Bo3
+        let newObject2 = jsonObject.slice(0, 3);
+        let total2=0;
+        for(let entry of newObject2){
+            total2 += entry.timer;
         }
+        bestOfThree.push(total2.toFixed(2));
 
-        if(jsonObject.length > 2){
-            for(let entry of jsonObject){
-                total += entry.timer;
-            }
-            total = total/3;
-            bestOfThree.push(total.toFixed(2));
+        // Get Bo5
+        let newObject3 = jsonObject.slice(0, 5);
+        let total3=0;
+        for(let entry of newObject3){
+            total3 += entry.timer;
         }
-        else{
-            console.log("Not enough entries for Bo3");
-        }
-    })
+        bestOfFive.push(total3.toFixed(2));
 
-    fetch('/getBestOfFive')
-    .then(function(response){
-        return response.json();
-    })
-    .then(jsonObject => {
-        let total=0;
-        if(jsonObject.length > 4){
-            for(let entry of jsonObject){
-                total += entry.timer;
-            }
-            total = total/5;
-            bestOfFive.push(total.toFixed(2));
+        // Get Bo12
+        let newObject4 = jsonObject.slice(0, 12);
+        let total4=0;
+        for(let entry of newObject4){
+            total4 += entry.timer;
         }
-        else{
-            console.log("Not enough entries for Bo5");
-        }
-    })
-
-    fetch('/getBestOfTwelve')
-    .then(function(response){
-        return response.json();
-    })
-    .then(jsonObject => {
-        let total=0;
-        if(jsonObject.length > 11){
-            for(let entry of jsonObject){
-                total += entry.timer;
-            }
-            total = total/12;
-            bestOfTwelve.push(total.toFixed(2));
-        }
-        else{
-            console.log("Not enough entries for Bo11");
-        }
-    })
-
-    fetch('/getMostRecent')
-    .then(function(response){
-        return response.json();
-    })
-    .then(jsonObject => {
-        // console.log(jsonObject[0].timer);
-        mostRecent.push((jsonObject[0].timer).toFixed(2));
-    })
+        bestOfTwelve.push(total4.toFixed(2));
+    });
 
     // Update graph
     myChart.config.data.labels = iter_array;
