@@ -57,14 +57,14 @@ Verify entry was added using.
 SELECT * FROM timer;
 ```
 
-## Database Setup (Times)
+## Database Setup (User Data)
 Log into the database.
 ```
 psql --username postgres --dbname rubiks_timer
 ```
 Create a table in the database to store user data.
 ```
-CREATE TABLE timer (
+CREATE TABLE users (
     username VARCHAR(20),
     hashed_password CHAR(60)
 );
