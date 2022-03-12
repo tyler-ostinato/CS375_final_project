@@ -10,7 +10,7 @@
 <body>
     <!-- Manually send time to database -->
     <div style="padding-bottom: 25px;">
-        <span>Scramble: </span><span id="scramble">R2 U R L' U2 D' F' U2 B2 L2 B2 R2 D' F2 D2 L2 U' B2 L2 B U</span>
+        <span>Scramble: </span><span id="scramble"></span>
     </div>
     <div>
         <label for="time">This time:</label>
@@ -27,18 +27,7 @@
     <button id="gen-scramble" style="margin: 15px; padding: 5px;">Generate a new scramble</button>
 
     <script src="visualiser.js"></script>
-    <script>
-        let blankScramble = initialState();
-
-        let scrambleTest = "R2 U R L' U2 D' F' U2 B2 L2 B2 R2 D' F2 D2 L2 U' B2 L2 B U";
-        let scrambleArray = scrambleTest.split(" ");
-        let randoTest = blankScramble;
-        for(move of scrambleArray){
-            randoTest = scrambleStep(move,randoTest);
-        }
-
-        drawCubeState(randoTest);
-    </script>
+    
 
     <button id="get-times" style="margin: 15px; padding: 5px;">Get Times</button>
 
@@ -53,7 +42,10 @@
     <!-- Load graphs -->
     <script src="graphs.js"></script>
 
-    <script src="timer.js"></script>
+    <script src="timer.js"></script> <!--must be bottom script so it can call from the others -->
+    <script>
+        generateNewScramble();  //generate initial scramble of session on page load
+    </script>
 
 
     <!-- actual timer logic. needs better name -->
