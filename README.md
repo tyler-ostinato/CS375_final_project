@@ -13,13 +13,30 @@ Chart.js\
 Postgres SQL database\
 Fetch API\
 RESTful web APIs (Node)\
-Password hashing
+Password hashing\
+passport\
+ejs\
 
 ## How to Clone and Run
 Navigate to desired directory in your terminal and run
 ```
 git clone https://github.com/tyler-ostinato/CS375_final_project.git
 ```
+
+## env.json
+Add an env.json file to the root of this directory and add the following information.
+
+```
+{
+	"user": "postgres",
+	"host": "localhost",
+	"database": "rubiks_timer",
+	"password": "<yourpassword>",
+	"port": 5432
+}
+```
+## 
+
 
 ## Database Setup (Times)
 ```
@@ -65,9 +82,16 @@ psql --username postgres --dbname rubiks_timer
 Create a table in the database to store user data.
 ```
 CREATE TABLE users (
-    username VARCHAR(20),
-    hashed_password CHAR(60)
+    id BIGSERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR(200) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    UNIQUE (email),
 );
+```
+Verify entry was added using.
+```
+SELECT * FROM users;
 ```
 
 ### Authors
