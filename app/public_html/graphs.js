@@ -9,7 +9,13 @@ let mostRecent = [];
 let solve_iter=1;
 let iter_array = [];
 
-getTimes.addEventListener("click", function(){
+function testAlert(){
+    alert("Working");
+}
+
+getTimes.addEventListener("click", retrieveTimes);
+
+function retrieveTimes(){
     console.log("Retrieving times...");
 
     iter_array.push(solve_iter);
@@ -61,7 +67,7 @@ getTimes.addEventListener("click", function(){
     myChart.config.data.datasets[2].data = bestOfTwelve;
     myChart.config.data.datasets[3].data = mostRecent;
     myChart.update();
-});
+}
 
 const labels = iter_array;
 

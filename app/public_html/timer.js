@@ -21,7 +21,7 @@ function sendData(){
 let newScramble = document.getElementById('gen-scramble');
 let displayScramble = document.getElementById('scramble');
 
-newScramble.addEventListener("click",generateNewScramble);
+newScramble.addEventListener("click",testAlert);
 
 function generateNewScramble(){
     console.log("Generating new scramble...");
@@ -41,6 +41,7 @@ function generateNewScramble(){
             randoTest = scrambleStep(move, randoTest);
         }
         drawCubeState(randoTest);
+        console.log("scramble genned")
     })
 }
 
