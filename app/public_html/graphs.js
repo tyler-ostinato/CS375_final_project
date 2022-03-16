@@ -1,6 +1,4 @@
 // Retrieve times from database
-let getTimes = document.getElementById('get-times');
-
 let bestOfThree = [NaN, NaN];
 let bestOfFive = [NaN, NaN, NaN, NaN];
 let bestOfTwelve = [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN];
@@ -9,9 +7,9 @@ let mostRecent = [];
 let solve_iter=1;
 let iter_array = [];
 
-getTimes.addEventListener("click", function(){
+function retrieveTimes(){
+    console.log("Retrieving times...");
     // console.log("Retrieving times...");
-
     iter_array.push(solve_iter);
     // Counter the number of solves that have been done
     solve_iter++;
@@ -82,7 +80,7 @@ getTimes.addEventListener("click", function(){
     myChart.config.data.datasets[2].data = bestOfTwelve;
     myChart.config.data.datasets[3].data = mostRecent;
     myChart.update();
-});
+}
 
 const labels = iter_array;
 

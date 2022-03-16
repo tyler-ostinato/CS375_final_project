@@ -1,6 +1,3 @@
-let sendButton = document.getElementById("send");
-sendButton.addEventListener("click", sendData);
-
 function sendData(){
     let timer = document.getElementById("time");
     let curScramble = document.getElementById("scramble").textContent;
@@ -19,10 +16,10 @@ function sendData(){
 }
 
 // Gen new scramble on button press
-let newScramble = document.getElementById('gen-scramble');
+// let newScramble = document.getElementById('gen-scramble');
 let displayScramble = document.getElementById('scramble');
 
-newScramble.addEventListener("click",generateNewScramble);
+// newScramble.addEventListener("click",testAlert);
 
 function generateNewScramble(){
     console.log("Generating new scramble...");
@@ -42,6 +39,7 @@ function generateNewScramble(){
             randoTest = scrambleStep(move, randoTest);
         }
         drawCubeState(randoTest);
+        console.log("scramble genned")
     })
 }
 
@@ -74,6 +72,7 @@ document.addEventListener('keydown', event => {
                 spaceHeld=true;
             }
         }
+        event.preventDefault();
     }
   })
 
