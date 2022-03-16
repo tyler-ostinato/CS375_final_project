@@ -1,9 +1,0 @@
-# passport
-# express
-# bcrypt
-# ejs
-# pg
-# dotenv
-# express-session
-# express-flash
-# passport-local
