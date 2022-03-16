@@ -167,7 +167,7 @@ function drawCubeState(inputScramble){ //draws the 3d array provided to a cube. 
 
         //outline
         ctx.beginPath();
-        ctx.rect(0, 0, (12*cubieSize)+(5*buffer), (9*cubieSize)+(4*buffer));
+        // ctx.rect(0, 0, (12*cubieSize)+(5*buffer), (9*cubieSize)+(4*buffer));
         ctx.stroke();
         ctx.lineWidth = 3;
 

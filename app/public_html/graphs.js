@@ -1,5 +1,5 @@
 // Retrieve times from database
-let getTimes = document.getElementById('get-times');
+// let getTimes = document.getElementById('get-times');
 
 let bestOfThree = [];
 let bestOfFive = [];
@@ -9,11 +9,11 @@ let mostRecent = [];
 let solve_iter=1;
 let iter_array = [];
 
-function testAlert(){
-    alert("Working");
-}
+// function testAlert(){
+//     alert("Working");
+// }
 
-getTimes.addEventListener("click", retrieveTimes);
+// getTimes.addEventListener("click", retrieveTimes);
 
 function retrieveTimes(){
     console.log("Retrieving times...");

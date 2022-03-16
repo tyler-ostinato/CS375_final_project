@@ -3,5 +3,31 @@
 }
 
 .greenTimer {
-    color:greenyellow;
+    color:rgb(35, 192, 21);
 }
+
+#container {
+    text-align: start;
+    
+  }
+  
+  /* #container div {
+    width: 100px; 
+    
+  } */
+  
+  /* #container:after {
+    width: 100%;
+    
+  } */
+
+
+
+.chart-container {
+    display: inline-block;
+}
+
+@font-face {
+    font-family: "LCD";
+    src: url("./fonts/DS-DIGI.TTF") format("truetype")
+  }
