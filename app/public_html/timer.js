@@ -1,8 +1,7 @@
 function sendData(){
-    let timer = document.getElementById("time");
     let curScramble = document.getElementById("scramble").textContent;
     // Need to update this to actually use user values and shit
-    let data = {"name": "Test","time": timer.value, "date": Date.now(), "scramble": curScramble};
+    let data = {"name": "Test","time": time.toFixed(2), "date": Date.now(), "scramble": curScramble};
     console.log("Client sending this data to /timer:", data);
     fetch('/timer', {
         method: 'POST', 
@@ -84,6 +83,7 @@ function spaceHandler(){
         timeHolder.classList.remove("redTimer");
         generateNewScramble();
         sendData();
+        retrieveTimes();
     }
     else{
         if(spaceHeldFor.toFixed(2)==holdDelay){
