@@ -1,23 +1,15 @@
 // Retrieve times from database
-// let getTimes = document.getElementById('get-times');
-
-let bestOfThree = [];
-let bestOfFive = [];
-let bestOfTwelve = [];
+let bestOfThree = [NaN, NaN];
+let bestOfFive = [NaN, NaN, NaN, NaN];
+let bestOfTwelve = [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN];
 let mostRecent = [];
 
 let solve_iter=1;
 let iter_array = [];
 
-// function testAlert(){
-//     alert("Working");
-// }
-
-// getTimes.addEventListener("click", retrieveTimes);
-
 function retrieveTimes(){
     console.log("Retrieving times...");
-
+    // console.log("Retrieving times...");
     iter_array.push(solve_iter);
     // Counter the number of solves that have been done
     solve_iter++;
@@ -27,11 +19,23 @@ function retrieveTimes(){
         return response.json();
     })
     .then(jsonObject => {
+        // If the arrays hold more than 30 elements, start deleting the old values
+        if(mostRecent.length > 30){
+            bestOfThree.shift();
+            bestOfFive.shift();
+            bestOfTwelve.shift();
+            mostRecent.shift();
+            iter_array.shift();
+        }
+
         // Get most recent times
         let newObject = jsonObject.slice(0, 1);
         let total=0;
         for(let entry of newObject){
-            total += entry.timer;
+            total += entry.time;
+        }
+        if(solve_iter==2){ // Fix misallignment for most recent solves
+            mostRecent.push(total.toFixed(2));
         }
         mostRecent.push(total.toFixed(2));
 
@@ -39,25 +43,34 @@ function retrieveTimes(){
         let newObject2 = jsonObject.slice(0, 3);
         let total2=0;
         for(let entry of newObject2){
-            total2 += entry.timer;
+            total2 += entry.time;
         }
-        bestOfThree.push(total2.toFixed(2));
+        total2 = total2/3;
+        if(jsonObject.length > 2){
+            bestOfThree.push(total2.toFixed(2));
+        }
 
         // Get Bo5
         let newObject3 = jsonObject.slice(0, 5);
         let total3=0;
         for(let entry of newObject3){
-            total3 += entry.timer;
+            total3 += entry.time;
         }
-        bestOfFive.push(total3.toFixed(2));
+        total3 = total3/5;
+        if(jsonObject.length > 4){
+            bestOfFive.push(total3.toFixed(2));
+        }
 
         // Get Bo12
         let newObject4 = jsonObject.slice(0, 12);
         let total4=0;
         for(let entry of newObject4){
-            total4 += entry.timer;
+            total4 += entry.time;
         }
-        bestOfTwelve.push(total4.toFixed(2));
+        total4 = total4/12;
+        if(jsonObject.length > 11){
+            bestOfTwelve.push(total4.toFixed(2));
+        }
     });
 
     // Update graph
