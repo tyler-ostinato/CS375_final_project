@@ -80,7 +80,7 @@ app.post('/users/register', async (req, res) =>{
     else{
         //Form validation has passed
         let hashedPassword = await bcrypt.hash(password, 10);
-        console.log(hashedPassword);
+        // console.log(hashedPassword);
 
         pool.query(
             `SELECT * FROM users
@@ -88,7 +88,7 @@ app.post('/users/register', async (req, res) =>{
                 if (err){
                     throw err
                 }
-                console.log(results.rows);
+                // console.log(results.rows);
 
                 if(results.rows.length > 0){
                     errors.push({ message: "Email already registered." });
@@ -103,7 +103,7 @@ app.post('/users/register', async (req, res) =>{
                             if(err){
                                 throw err;
                             }
-                            console.log(results.rows);
+                            // console.log(results.rows);
                             req.flash('success_msg', "You are now registered. Please log in.");
                             res.redirect('/users/login');
                         }
@@ -220,11 +220,11 @@ app.post("/timer", function(req, res){
     let scramble = jsonObject.scramble;
 
     pool.query(
-        "INSERT INTO timer (name, timer, scramble, date) VALUES($1, $2, $3, $4) RETURNING *",
+        "INSERT INTO timer (name, time, scramble, date) VALUES($1, $2, $3, $4) RETURNING *",
         [user, time, scramble, date]
     )
     .then(function(response){
-        console.log(response.rows);
+        // console.log(response.rows);
         return res.sendStatus(200);
     })
 });
@@ -237,9 +237,10 @@ app.get('/scramble', function(req, res){
 
 app.get('/getTimes', function(req, res){
     pool.query(
-        "SELECT timer FROM timer ORDER BY date DESC LIMIT 30",
+        "SELECT time FROM timer ORDER BY date DESC LIMIT 30",
     )
     .then(function(response){
+        // console.log(response.rows);
         return res.send(response.rows);
     })
 });

@@ -1,10 +1,11 @@
 let sendButton = document.getElementById("send");
-
 sendButton.addEventListener("click", sendData);
 
 function sendData(){
+    let timer = document.getElementById("time");
     let curScramble = document.getElementById("scramble").textContent;
-    let data = {"user": "Test","time": time.toFixed(2), "scramble": curScramble, "date": Date.now()};
+    // Need to update this to actually use user values and shit
+    let data = {"name": "Test","time": timer.value, "date": Date.now(), "scramble": curScramble};
     console.log("Client sending this data to /timer:", data);
     fetch('/timer', {
         method: 'POST', 

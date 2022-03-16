@@ -1,5 +1,4 @@
 const LocalStrategy = require("passport-local").Strategy;
-// const { pool } = require("./dbConfig");
 const pg = require("pg");
 const env = require("../env.json");
 const Pool = pg.Pool;
@@ -10,7 +9,7 @@ function initialize(passport) {
   console.log("Initialized");
 
 const authenticateUser = (email, password, done) => {
-    console.log(email, password);
+    // console.log(email, password);
     pool.query(
       `SELECT * FROM users WHERE email = $1`,
       [email],
@@ -18,7 +17,7 @@ const authenticateUser = (email, password, done) => {
         if (err) {
           throw err;
         }
-        console.log(results.rows);
+        // console.log(results.rows);
 
         if (results.rows.length > 0) {
           const user = results.rows[0];
@@ -58,7 +57,7 @@ passport.deserializeUser((id, done) => {
       if (err) {
         return done(err);
       }
-      console.log(`ID is ${results.rows[0].id}`);
+      // console.log(`ID is ${results.rows[0].id}`);
       return done(null, results.rows[0]);
     });
   });

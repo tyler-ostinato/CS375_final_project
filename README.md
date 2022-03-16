@@ -35,8 +35,10 @@ Add an env.json file to the root of this directory and add the following informa
 	"port": 5432
 }
 ```
-## 
-
+## Install Dependicies
+```
+npm install  
+```
 
 ## Database Setup (Times)
 ```
@@ -61,7 +63,7 @@ Create a table in the database to store times.
 CREATE TABLE timer (
     id SERIAL PRIMARY KEY, /* auto incrementing primary key */
     name VARCHAR(50),
-    timer REAL,
+    time REAL,
     date VARCHAR(20),
     scramble VARCHAR(80)
 );
