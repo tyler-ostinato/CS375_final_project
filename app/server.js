@@ -1,4 +1,6 @@
-// https://www.youtube.com/watch?v=vxu1RrR0vbw
+// Setup of login/registration -
+// Video: https://www.youtube.com/watch?v=vxu1RrR0vbw
+// Source code: https://github.com/conorbailey90/node-js-passport-login-postgresql
 
 const pg = require("pg");
 const express = require("express");
@@ -19,6 +21,8 @@ const hostname = "localhost";
 const env = require("../env.json");
 const Pool = pg.Pool;
 const pool = new Pool(env);
+
+let user; // Store the current user in the session for the database
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../app/public_html/views'))
@@ -49,6 +53,7 @@ app.get("/users/login", checkAuthenticated, (req, res) => {
 
 app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
     res.render("dashboard", { user: req.user.name });
+    user = req.user.name;
 })
 
 app.get("/users/logout", (req, res) => {
@@ -212,10 +217,12 @@ app.use(express.json());
 
 app.post("/timer", function(req, res){
     let jsonObject = req.body;
-    let user = jsonObject.user;
     let time = jsonObject.time;
     let date = jsonObject.date;
     let scramble = jsonObject.scramble;
+
+    console.log("user");
+    console.log(user);
 
     pool.query(
         "INSERT INTO timer (name, time, scramble, date) VALUES($1, $2, $3, $4) RETURNING *",

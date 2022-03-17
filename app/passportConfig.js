@@ -1,3 +1,7 @@
+// Setup of login/registration -
+// Video: https://www.youtube.com/watch?v=vxu1RrR0vbw
+// Source code: https://github.com/conorbailey90/node-js-passport-login-postgresql
+
 const LocalStrategy = require("passport-local").Strategy;
 const pg = require("pg");
 const env = require("../env.json");

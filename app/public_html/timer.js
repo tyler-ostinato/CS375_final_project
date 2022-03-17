@@ -1,7 +1,7 @@
 function sendData(){
     let curScramble = document.getElementById("scramble").textContent;
     // Need to update this to actually use user values and shit
-    let data = {"name": "Test","time": time.toFixed(2), "date": Date.now(), "scramble": curScramble};
+    let data = {"name": "","time": time.toFixed(2), "date": Date.now(), "scramble": curScramble};
     console.log("Client sending this data to /timer:", data);
     fetch('/timer', {
         method: 'POST', 
