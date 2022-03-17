@@ -221,9 +221,6 @@ app.post("/timer", function(req, res){
     let date = jsonObject.date;
     let scramble = jsonObject.scramble;
 
-    console.log("user");
-    console.log(user);
-
     pool.query(
         "INSERT INTO timer (name, time, scramble, date) VALUES($1, $2, $3, $4) RETURNING *",
         [user, time, scramble, date]
