@@ -239,7 +239,7 @@ app.get('/scramble', function(req, res){
 
 app.get('/getTimes', function(req, res){
     pool.query(
-        "SELECT time FROM timer ORDER BY date DESC LIMIT 30",
+        `SELECT time FROM timer WHERE name LIKE '${user}' ORDER BY date DESC LIMIT 30`,
     )
     .then(function(response){
         // console.log(response.rows);

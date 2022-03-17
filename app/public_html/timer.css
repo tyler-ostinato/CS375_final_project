@@ -21,7 +21,13 @@
     
   } */
 
+.header .logout {
+  float: left
+}
 
+.header .username {
+  float: right,
+}
 
 .chart-container {
     display: inline-block;
