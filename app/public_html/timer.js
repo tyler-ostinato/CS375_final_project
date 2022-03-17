@@ -119,3 +119,41 @@ function colorUpdate(){
         clearInterval(delayID);
     }
 }
+
+
+function removeChildren(element) { //This function, as well as code skeleton, from 5a solutions
+	while (element.hasChildNodes()) {
+		element.lastChild.remove();
+	}
+}
+
+function getLastTwelve(){
+    fetch('/getLastTwelve')
+    .then(function(response){
+        return response.json();
+    }).then(function (response) {
+        console.log(response);
+        removeChildren(resultsTable);
+        let index=1;
+        let runningTot=0;
+		for (let row of response) {
+            console.log(row);
+			let tableRow = document.createElement("tr");
+            let cell1 = document.createElement("td");
+            let cell2 = document.createElement("td");
+            cell1.textContent = index;
+            cell2.textContent = row["time"];
+            tableRow.append(cell1);
+            tableRow.append(cell2);
+            index++;
+            runningTot+=row["time"];
+			
+			resultsTable.append(tableRow);
+		}
+        
+        AOT12holder.textContent=(runningTot/12).toFixed(2)/1;
+    })
+}
+
+generateNewScramble();
+getLastTwelve();
