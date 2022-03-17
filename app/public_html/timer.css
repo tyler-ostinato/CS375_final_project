@@ -21,12 +21,12 @@
     
   } */
 
-.header .logout {
+/* .header .logout {
   float: left
-}
+} */
 
 .header .username {
-  float: right,
+  justify-content: right;
 }
 
 .chart-container {
