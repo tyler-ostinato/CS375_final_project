@@ -134,8 +134,6 @@ function checkNotAuthenticated(req, res, next) {
     res.redirect("/users/login");
 }
 
-// server.js V1 -------------------------------------------------------- //
-
 // Source for basic scramble: https://levelup.gitconnected.com/using-javascript-to-scramble-a-rubiks-cube-306f52908f18
 // Parity issue: https://levelup.gitconnected.com/javascript-rubiks-cube-scrambler-part-2-an-improved-algorithm-e279c3731c99
 function makeScramble(){

@@ -3,85 +3,9 @@ let bestOfThree = [NaN, NaN];
 let bestOfFive = [NaN, NaN, NaN, NaN];
 let bestOfTwelve = [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN];
 let mostRecent = [];
-
+let timeArray = [];
 let solve_iter=1;
 let iter_array = [];
-
-function retrieveTimes(){
-    console.log("Retrieving times...");
-    // console.log("Retrieving times...");
-    iter_array.push(solve_iter);
-    // Counter the number of solves that have been done
-    solve_iter++;
-
-    fetch('/getTimes')
-    .then(function(response){
-        return response.json();
-    })
-    .then(jsonObject => {
-        // If the arrays hold more than 30 elements, start deleting the old values
-        if(mostRecent.length > 30){
-            bestOfThree.shift();
-            bestOfFive.shift();
-            bestOfTwelve.shift();
-            mostRecent.shift();
-            iter_array.shift();
-        }
-
-        // Get most recent times
-        let newObject = jsonObject.slice(0, 1);
-        let total=0;
-        for(let entry of newObject){
-            total += entry.time;
-        }
-        if(solve_iter==2){ // Fix misallignment for most recent solves
-            mostRecent.push(total.toFixed(2));
-        }
-        mostRecent.push(total.toFixed(2));
-
-        // Get Bo3
-        let newObject2 = jsonObject.slice(0, 3);
-        let total2=0;
-        for(let entry of newObject2){
-            total2 += entry.time;
-        }
-        total2 = total2/3;
-        if(jsonObject.length > 2){
-            bestOfThree.push(total2.toFixed(2));
-        }
-
-        // Get Bo5
-        let newObject3 = jsonObject.slice(0, 5);
-        let total3=0;
-        for(let entry of newObject3){
-            total3 += entry.time;
-        }
-        total3 = total3/5;
-        if(jsonObject.length > 4){
-            bestOfFive.push(total3.toFixed(2));
-        }
-
-        // Get Bo12
-        let newObject4 = jsonObject.slice(0, 12);
-        let total4=0;
-        for(let entry of newObject4){
-            total4 += entry.time;
-        }
-        total4 = total4/12;
-        if(jsonObject.length > 11){
-            bestOfTwelve.push(total4.toFixed(2));
-        }
-    });
-
-    // Update graph
-    myChart.config.data.labels = iter_array;
-    myChart.config.data.datasets[0].data = bestOfThree;
-    myChart.config.data.datasets[1].data = bestOfFive;
-    myChart.config.data.datasets[2].data = bestOfTwelve;
-    myChart.config.data.datasets[3].data = mostRecent;
-    myChart.update();
-}
-
 const labels = iter_array;
 
 const data = {
@@ -142,3 +66,72 @@ const myChart = new Chart(
     document.getElementById('myChart'),
     config
 );
+
+async function updateChartAsync(){
+    const response = await fetch("/getTimes");
+    const jsonObject = await response.json();
+    return jsonObject
+}
+
+// Async functions with fetch: https://dmitripavlutin.com/javascript-fetch-async-await/
+function updateChart(){
+    console.log("Retrieving times...");
+    iter_array.push(solve_iter);
+    // Counter the number of solves that have been done
+    solve_iter++;
+    updateChartAsync().then(jsonObject =>{
+
+        if(mostRecent.length > 30){
+            bestOfThree.shift();
+            bestOfFive.shift();
+            bestOfTwelve.shift();
+            mostRecent.shift();
+            iter_array.shift();
+        }
+
+        // Get most recent times
+        let newObject = jsonObject.slice(0, 1);
+        mostRecent.push((newObject[0].time).toFixed(2));
+
+        // Get Bo3
+        let newObject2 = jsonObject.slice(0, 3);
+        let total2=0;
+        for(let entry of newObject2){
+            total2 += entry.time;
+        }
+        total2 = total2/3;
+        if(jsonObject.length > 2){
+            bestOfThree.push(total2.toFixed(2));
+        }
+
+        // Get Bo5
+        let newObject3 = jsonObject.slice(0, 5);
+        let total3=0;
+        for(let entry of newObject3){
+            total3 += entry.time;
+        }
+        total3 = total3/5;
+        if(jsonObject.length > 4){
+            bestOfFive.push(total3.toFixed(2));
+        }
+
+        // Get Bo12
+        let newObject4 = jsonObject.slice(0, 12);
+        let total4=0;
+        for(let entry of newObject4){
+            total4 += entry.time;
+        }
+        total4 = total4/12;
+        if(jsonObject.length > 11){
+            bestOfTwelve.push(total4.toFixed(2));
+        }
+
+        console.log("Updating graph...");
+        myChart.config.data.labels = iter_array;
+        myChart.config.data.datasets[0].data = bestOfThree;
+        myChart.config.data.datasets[1].data = bestOfFive;
+        myChart.config.data.datasets[2].data = bestOfTwelve;
+        myChart.config.data.datasets[3].data = mostRecent;
+        myChart.update();
+    });
+}

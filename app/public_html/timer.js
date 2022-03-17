@@ -38,7 +38,7 @@ function generateNewScramble(){
             randoTest = scrambleStep(move, randoTest);
         }
         drawCubeState(randoTest);
-        console.log("scramble genned")
+        console.log("Scramble generated");
     })
 }
 
@@ -83,9 +83,10 @@ function spaceHandler(){
         timeHolder.classList.remove("redTimer");
         generateNewScramble();
         sendData();
-        retrieveTimes();
+        updateChart();
     }
     else{
+        // retrieveTimes();
         if(spaceHeldFor.toFixed(2)==holdDelay){
             time = 0.00;
             timerID=setInterval(timerUpdate,10);
