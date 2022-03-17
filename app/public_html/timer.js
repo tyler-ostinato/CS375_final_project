@@ -1,3 +1,6 @@
+let resultsTable = document.getElementById("resultsTable");
+let AOT12holder = document.getElementById("AO12");
+
 function sendData(){
     let curScramble = document.getElementById("scramble").textContent;
     // Need to update this to actually use user values and shit
@@ -15,10 +18,7 @@ function sendData(){
 }
 
 // Gen new scramble on button press
-// let newScramble = document.getElementById('gen-scramble');
 let displayScramble = document.getElementById('scramble');
-
-// newScramble.addEventListener("click",testAlert);
 
 function generateNewScramble(){
     console.log("Generating new scramble...");
@@ -84,9 +84,9 @@ function spaceHandler(){
         generateNewScramble();
         sendData();
         updateChart();
+        getLastTwelve();
     }
     else{
-        // retrieveTimes();
         if(spaceHeldFor.toFixed(2)==holdDelay){
             time = 0.00;
             timerID=setInterval(timerUpdate,10);

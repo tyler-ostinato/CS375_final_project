@@ -37,3 +37,4 @@
     font-family: "LCD";
     src: url("./fonts/DS-DIGI.TTF") format("truetype")
   }
+INSERT INTO timer (name, time, scramble, date) VALUES ('Test', 23.77, 'U2', '1646238039');
