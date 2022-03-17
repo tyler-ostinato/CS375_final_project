@@ -1,4 +1,6 @@
-// https://www.youtube.com/watch?v=vxu1RrR0vbw
+// Setup of login/registration -
+// Video: https://www.youtube.com/watch?v=vxu1RrR0vbw
+// Source code: https://github.com/conorbailey90/node-js-passport-login-postgresql
 
 const pg = require("pg");
 const express = require("express");
@@ -19,6 +21,8 @@ const hostname = "localhost";
 const env = require("../env.json");
 const Pool = pg.Pool;
 const pool = new Pool(env);
+
+let user; // Store the current user in the session for the database
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../app/public_html/views'))
@@ -49,6 +53,7 @@ app.get("/users/login", checkAuthenticated, (req, res) => {
 
 app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
     res.render("dashboard", { user: req.user.name });
+    user = req.user.name;
 })
 
 app.get("/users/logout", (req, res) => {
@@ -134,8 +139,6 @@ function checkNotAuthenticated(req, res, next) {
     res.redirect("/users/login");
 }
 
-// server.js V1 -------------------------------------------------------- //
-
 // Source for basic scramble: https://levelup.gitconnected.com/using-javascript-to-scramble-a-rubiks-cube-306f52908f18
 // Parity issue: https://levelup.gitconnected.com/javascript-rubiks-cube-scrambler-part-2-an-improved-algorithm-e279c3731c99
 function makeScramble(){
@@ -214,7 +217,6 @@ app.use(express.json());
 
 app.post("/timer", function(req, res){
     let jsonObject = req.body;
-    let user = jsonObject.user;
     let time = jsonObject.time;
     let date = jsonObject.date;
     let scramble = jsonObject.scramble;

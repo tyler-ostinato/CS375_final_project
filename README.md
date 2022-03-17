@@ -22,6 +22,14 @@ Navigate to desired directory in your terminal and run
 ```
 git clone https://github.com/tyler-ostinato/CS375_final_project.git
 ```
+cd into the app folder
+```
+cd app/
+```
+run the code on localhost
+```
+node server.js
+```
 
 ## env.json
 Add an env.json file to the root of this directory and add the following information.
@@ -68,10 +76,7 @@ CREATE TABLE timer (
     scramble VARCHAR(80)
 );
 ```
-```
-INSERT INTO timer (name, timer, scramble, date) VALUES ('Test', 77.77, "U2 R2 L2 B2 R D2 L2 B' U D2 L' D2 R' B' R2 B R F' B R2", '1646238039');
-```
-Verify entry was added using.
+Verify table was added using.
 ```
 SELECT * FROM timer;
 ```
@@ -91,7 +96,7 @@ CREATE TABLE users (
     UNIQUE (email)
 );
 ```
-Verify entry was added using.
+Verify table was added using.
 ```
 SELECT * FROM users;
 ```

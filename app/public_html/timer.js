@@ -1,7 +1,7 @@
 function sendData(){
     let curScramble = document.getElementById("scramble").textContent;
     // Need to update this to actually use user values and shit
-    let data = {"name": "Test","time": time.toFixed(2), "date": Date.now(), "scramble": curScramble};
+    let data = {"name": "", "time": time.toFixed(2), "date": Date.now(), "scramble": curScramble};
     console.log("Client sending this data to /timer:", data);
     fetch('/timer', {
         method: 'POST', 
@@ -38,7 +38,7 @@ function generateNewScramble(){
             randoTest = scrambleStep(move, randoTest);
         }
         drawCubeState(randoTest);
-        console.log("scramble genned")
+        console.log("Scramble generated");
     })
 }
 
@@ -83,9 +83,10 @@ function spaceHandler(){
         timeHolder.classList.remove("redTimer");
         generateNewScramble();
         sendData();
-        retrieveTimes();
+        updateChart();
     }
     else{
+        // retrieveTimes();
         if(spaceHeldFor.toFixed(2)==holdDelay){
             time = 0.00;
             timerID=setInterval(timerUpdate,10);
