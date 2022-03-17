@@ -247,6 +247,16 @@ app.get('/getTimes', function(req, res){
     })
 });
 
+app.get('/getLastTwelve', function(req, res){
+    pool.query(
+        "SELECT time FROM timer ORDER BY date DESC LIMIT 12",
+    )
+    .then(function(response){
+        // console.log(response.rows);
+        return res.send(response.rows);
+    })
+});
+
 app.listen(port, hostname, () => {
     console.log(`Listening at: http://${hostname}:${port}`);
 });
